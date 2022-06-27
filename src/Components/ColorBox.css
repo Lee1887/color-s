@@ -19,7 +19,7 @@
   border-radius: 4px;
   text-align: center;
 }
-.color-box__message {
+.message {
   position: absolute;
   top: -5px;
   background-color: springgreen;
@@ -30,7 +30,7 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
 }
 
-.color-box__delete {
+.delete-button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -45,4 +45,10 @@
   color: rgb(132, 132, 146);
   cursor: pointer;
   background-color: #ccd;
+}
+
+.color-box__name-display {
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: rgb(0 0 0 / 0.7);
 }
