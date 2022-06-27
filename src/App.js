@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import { nanoid } from "nanoid";
+import { ColorBox } from "./Components/ColorBox";
+import { ColorForm } from "./Components/ColorForm";
 
 function App() {
+  const [colors, setColors] = useState([]);
+
+  const handleAddColor = (code) => {
+    setColors([{ id: nanoid(), code }, ...colors]);
+  };
+
+  const handleDeleteColor = (id) => {
+    setColors(colors.filter((color) => color.id !== id));
+  };
+
+  const handleChangeColor = (id, code) => {
+    setColors(
+      colors.map((color) => {
+        return {
+          ...color,
+          code: color.id === id ? code : color.code,
+        };
+      })
+    );
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Color Saver Step 7</h1>
+      <ColorForm onSubmit={handleAddColor} />
+      <div className="card-grid">
+        {colors.map((color) => {
+          return (
+            <ColorBox
+              color={color.code}
+              key={color.id}
+              onDelete={() => {
+                handleDeleteColor(color.id);
+              }}
+              onChange={(code) => {
+                handleChangeColor(color.id, code);
+              }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
