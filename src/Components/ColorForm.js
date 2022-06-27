@@ -27,7 +27,7 @@ export default function ColorForm({ onSubmit }) {
           setColorCode(event.target.value.toUpperCase());
         }}
       />
-      <button>Create</button>
+      <button>Richtig Nice</button>
     </form>
   );
 }
