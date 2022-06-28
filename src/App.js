@@ -17,10 +17,6 @@ const COLORS = [
     id: "2",
     colorCode: "#0000ff",
   },
-  {
-    id: "3",
-    colorCode: "#000ff0",
-  },
 ];
 
 export default function App() {
