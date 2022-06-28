@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import ColorBox from "./Components/ColorBox";
+import ColorForm from "./Components/ColorForm";
+import { nanoid } from "nanoid";
+import "./App.css";
 
-function App() {
+const COLORS = [
+  {
+    id: "0",
+    colorCode: "#ff0000",
+  },
+  {
+    id: "1",
+    colorCode: "#00ff00",
+  },
+  {
+    id: "2",
+    colorCode: "#0000ff",
+  },
+];
+
+export default function App() {
+  const [colorList, setColorList] = useState([]);
+
+  useEffect(() => {
+    const savedList =
+      JSON.parse(window.localStorage.getItem("colorList")) || COLORS;
+    setColorList(savedList);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("colorList", JSON.stringify(colorList));
+  }, [colorList]);
+
+  function handleAddColor(newColor) {
+    setColorList((prevList) => [
+      {
+        id: nanoid(),
+        colorCode: newColor,
+      },
+      ...prevList,
+    ]);
+  }
+
+  function handleDeleteColor(id) {
+    const updatedColorList = colorList.filter((color) => color.id !== id);
+    setColorList(updatedColorList);
+  }
+
+  function handleUpdateColor(id, colorCode) {
+    const updatedColorList = colorList.map((color) =>
+      color.id === id
+        ? {
+            ...color,
+            colorCode,
+          }
+        : color
+    );
+    setColorList(updatedColorList);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ColorForm onSubmit={handleAddColor} />
+      <div className="card-grid">
+        {colorList.map((color) => (
+          <ColorBox
+            key={color.id}
+            color={color.colorCode}
+            colorId={color.id}
+            onDelete={() => handleDeleteColor(color.id)}
+            onUpdate={handleUpdateColor}
+          />
+        ))}
+      </div>
     </div>
   );
 }
-
-export default App;

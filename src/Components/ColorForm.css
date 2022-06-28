@@ -1,0 +1,27 @@
+.form-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.color-form {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 200px;
+  height: 200px;
+  gap: 10px;
+  padding: 40px;
+  border: 1px solid slategray;
+  border-radius: 7px;
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.color-form * {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(230 230 230 / 0.9);
+  border: 1px solid slategray;
+  border-radius: 4px;
+  text-align: center;
+}
